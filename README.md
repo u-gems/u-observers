@@ -41,6 +41,7 @@ Because of this issue, I decided to create a gem that encapsulates the pattern w
 > **Note:** Você entende português? 🇧🇷&nbsp;🇵🇹 Verifique o [README traduzido em pt-BR](https://github.com/serradura/u-observers/blob/main/README.pt-BR.md).
 
 # Table of contents <!-- omit in toc -->
+
 - [Installation](#installation)
 - [Compatibility](#compatibility)
   - [Usage](#usage)
@@ -60,7 +61,7 @@ Because of this issue, I decided to create a gem that encapsulates the pattern w
     - [Detaching observers](#detaching-observers)
     - [ActiveRecord and ActiveModel integrations](#activerecord-and-activemodel-integrations)
       - [`.notify_observers_on()`](#notify_observers_on)
-      - [`.notify_observers!()`](#attaching-observers-at-the-class-level-notify_observers)
+      - [Attaching observers at the class level (`.notify_observers!()`)](#attaching-observers-at-the-class-level-notify_observers)
       - [`.notify_observers()`](#notify_observers)
   - [Development](#development)
   - [Contributing](#contributing)
@@ -77,11 +78,24 @@ gem 'u-observers'
 
 # Compatibility
 
-| u-observers | branch  | ruby     | activerecord  |
-| ----------- | ------- | -------- | ------------- |
-| unreleased  | main    | >= 2.7.0 | >= 6.0, <= Edge |
-| 2.3.0       | v2.x    | >= 2.2.0 | >= 3.2, < 6.1 |
-| 1.0.0       | v1.x    | >= 2.2.0 | >= 3.2, < 6.1 |
+| u-observers | branch | ruby     | activerecord    |
+| ----------- | ------ | -------- | --------------- |
+| unreleased  | main   | >= 2.7.0 | >= 6.0, <= Edge |
+| 2.3.0       | v2.x   | >= 2.2.0 | >= 3.2, < 6.1   |
+| 1.0.0       | v1.x   | >= 2.2.0 | >= 3.2, < 6.1   |
+
+This library is tested (CI matrix) against:
+
+| Ruby / Rails | 6.0 | 6.1 | 7.0 | 7.1 | 7.2 | 8.0 | 8.1 | Edge |
+| ------------ | --- | --- | --- | --- | --- | --- | --- | ---- |
+| 2.7          | ✅  | ✅  | ✅  | ✅  |     |     |     |      |
+| 3.0          | ✅  | ✅  | ✅  | ✅  |     |     |     |      |
+| 3.1          |     |     | ✅  | ✅  | ✅  |     |     |      |
+| 3.2          |     |     | ✅  | ✅  | ✅  | ✅  |     |      |
+| 3.3          |     |     | ✅  | ✅  | ✅  | ✅  | ✅  | ✅   |
+| 3.4          |     |     |     |     | ✅  | ✅  | ✅  | ✅   |
+| 4.x          |     |     |     |     |     |     | ✅  | ✅   |
+| Head         |     |     |     |     |     |     | ✅  | ✅   |
 
 > **Note**: The ActiveRecord isn't a dependency, but you could add a module to enable some static methods that were designed to be used with its [callbacks](https://guides.rubyonrails.org/active_record_callbacks.html).
 
@@ -243,6 +257,7 @@ The `observers.on()` method enables you to attach a callable as an observer.
 Usually, a callable has a well-defined responsibility (do only one thing), because of this, it tends to be more [SRP (Single-responsibility principle)](https://en.wikipedia.org/wiki/Single-responsibility_principle) friendly than a conventional observer (that could have N methods to respond to different kinds of notification).
 
 This method receives the below options:
+
 1. `:event` the expected event name.
 2. `:call` the callable object itself.
 3. `:with` (optional) it can define the value which will be used as the callable object's argument. So, if it is a `Proc`, a `Micro::Observers::Event` instance will be received as the `Proc` argument, and its output will be the callable argument. But if this option wasn't defined, the `Micro::Observers::Event` instance will be the callable argument.
@@ -507,6 +522,7 @@ order.observers.count # 0
 To make use of this feature you need to require an additional module.
 
 Gemfile example:
+
 ```ruby
 gem 'u-observers', require: 'u-observers/for/active_record'
 ```
@@ -612,7 +628,7 @@ Post.detach_observers_to_notify(from: :after_commit)
 
 #### `.notify_observers()`
 
-The `notify_observers` allows you to define one or more *events*, that will be used to notify after the execution of some `ActiveModel`/`ActiveRecord` callback.
+The `notify_observers` allows you to define one or more _events_, that will be used to notify after the execution of some `ActiveModel`/`ActiveRecord` callback.
 
 ```ruby
 class Post < ActiveRecord::Base
@@ -661,7 +677,6 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/serradura/u-observers. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/serradura/u-observers/blob/master/CODE_OF_CONDUCT.md).
-
 
 ## License
 
