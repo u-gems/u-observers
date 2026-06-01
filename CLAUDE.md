@@ -122,30 +122,35 @@ Running the matrix locally (multiple Rubies via mise, see `.tool-versions`):
 - Pin a 2.x bundler per Ruby when needed: bare `bundle` can grab an incompatible
   4.x on Ruby 3.1 (and 2.7/3.0 need bundler `2.4.22`, as CI does).
 
-## README is part of every change
+## CHANGELOG and READMEs are part of every change
 
-Both READMEs are user-facing and **must stay in sync with each other**:
+These user-facing files must stay in sync with the code:
 
-- **`README.md`** (English) and **`README.pt-BR.md`** (Portuguese) — any
-  documented-API or compatibility change goes into **both** in the same commit.
-- The **Compatibility** table near the top references the supported Ruby ×
-  ActiveRecord bounds. Update it when the matrix moves.
-- If you change a documented API, update the relevant Usage section (and its
+- **`CHANGELOG.md`**: follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/).
+  Every user-visible change (new API, behavior change, dep bump that shifts the
+  supported matrix, fix, security fix) gets a bullet under the appropriate
+  section (`Added` / `Changed` / `Deprecated` / `Removed` / `Fixed` /
+  `Security`) in `[Unreleased]`. Pure README/CI/internal-refactor changes
+  generally don't need an entry. The gemspec `changelog_uri` points here.
+- **`README.md`** (English) and **`README.pt-BR.md`** (Portuguese) **must stay
+  in sync with each other** — any documented-API or compatibility change goes
+  into **both** in the same commit. The **Compatibility** table references the
+  supported Ruby × ActiveRecord bounds; update it when the matrix moves. If you
+  change a documented API, update the relevant Usage section (and its
   table-of-contents entry) in both files.
-
-There is no `CHANGELOG.md` in this repo — release notes live in
-[GitHub Releases](https://github.com/serradura/u-observers/releases) (the
-gemspec `changelog_uri` points there).
 
 ## Bumping the version
 
 1. Edit `lib/micro/observers/version.rb` — change `Micro::Observers::VERSION`.
    Follow [SemVer](https://semver.org/): patch for fixes, minor for additive
    user-visible changes, major for breaking changes.
-2. Update the **Compatibility** table in `README.md` and `README.pt-BR.md`: if
+2. In `CHANGELOG.md`, turn `[Unreleased]` into a new `## [X.Y.Z] - YYYY-MM-DD`
+   section and add a matching compare link at the bottom
+   (`[X.Y.Z]: …/compare/vPREV...vX.Y.Z`).
+3. Update the **Compatibility** table in `README.md` and `README.pt-BR.md`: if
    supported Ruby / ActiveRecord bounds changed, add a new row; otherwise bump
    the existing row's version label.
-3. If the supported matrix moved, double-check that the Compatibility table, the
+4. If the supported matrix moved, double-check that the Compatibility table, the
    CI matrix (`.github/workflows/ci.yml`), and the `Appraisals` file all reflect
    the new bounds.
 

@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
 
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = 'https://github.com/serradura/u-observers'
-  spec.metadata['changelog_uri'] = 'https://github.com/serradura/u-observers/releases'
+  spec.metadata['changelog_uri'] = 'https://github.com/serradura/u-observers/blob/main/CHANGELOG.md'
   spec.metadata['bug_tracker_uri'] = "#{spec.homepage}/issues"
 
   # Specify which files should be added to the gem when it is released.

@@ -1,28 +1,19 @@
 <p align="center">
   <h1 align="center">👀 μ-observers</h1>
   <p align="center"><i>Implementação simples e poderosa do padrão observer.</i></p>
-  <br>
 </p>
 
 <p align="center">
   <a href="https://rubygems.org/gems/u-observers">
     <img alt="Gem" src="https://img.shields.io/gem/v/u-observers.svg?style=flat-square">
   </a>
-
   <a href="https://github.com/serradura/u-observers/actions/workflows/ci.yml">
     <img alt="Build Status" src="https://github.com/serradura/u-observers/actions/workflows/ci.yml/badge.svg">
   </a>
-
-  <a href="https://qlty.sh/gh/serradura/projects/u-observers">
-    <img alt="Maintainability" src="https://qlty.sh/gh/serradura/projects/u-observers/maintainability.svg">
-  </a>
-
-  <a href="https://qlty.sh/gh/serradura/projects/u-observers">
-    <img alt="Code Coverage" src="https://qlty.sh/gh/serradura/projects/u-observers/coverage.svg">
-  </a>
-
-  <br>
-
+  <br/>
+  <a href="https://qlty.sh/gh/serradura/projects/u-observers"><img src="https://qlty.sh/gh/serradura/projects/u-observers/maintainability.svg" alt="Maintainability" /></a>
+  <a href="https://qlty.sh/gh/serradura/projects/u-observers"><img src="https://qlty.sh/gh/serradura/projects/u-observers/coverage.svg" alt="Code Coverage" /></a>
+  <br/>
   <img src="https://img.shields.io/badge/Ruby%20%3E%3D%202.7%2C%20%3C%3D%20Head-ruby.svg?colorA=444&colorB=333" alt="Ruby">
   <img src="https://img.shields.io/badge/Rails%20%3E%3D%206.0%2C%20%3C%3D%20Edge-rails.svg?colorA=444&colorB=333" alt="Rails">
 </p>
@@ -59,7 +50,7 @@ Por causa desse problema, decidi criar uma gem que encapsula o padrão sem alter
     - [Desanexando observers](#desanexando-observers)
     - [Integrações ActiveRecord e ActiveModel](#integrações-activerecord-e-activemodel)
       - [`.notify_observers_on()`](#notify_observers_on)
-      - [`.notify_observers!()`](#anexando-observers-no-nível-da-classe-notify_observers)
+      - [Anexando observers no nível da classe (`.notify_observers!()`)](#anexando-observers-no-nível-da-classe-notify_observers)
       - [`.notify_observers()`](#notify_observers)
   - [Desenvolvimento](#desenvolvimento)
   - [Contribuindo](#contribuindo)
@@ -76,11 +67,24 @@ gem 'u-observers'
 
 # Compatibilidade
 
-| u-observers | branch  | ruby     | activerecord  |
-| ----------- | ------- | -------- | ------------- |
-| unreleased  | main    | >= 2.7.0 | >= 6.0, <= Edge |
-| 2.3.0       | v2.x    | >= 2.2.0 | >= 3.2, < 6.1 |
-| 1.0.0       | v1.x    | >= 2.2.0 | >= 3.2, < 6.1 |
+| u-observers | branch | ruby     | activerecord    |
+| ----------- | ------ | -------- | --------------- |
+| unreleased  | main   | >= 2.7.0 | >= 6.0, <= Edge |
+| 2.3.0       | v2.x   | >= 2.2.0 | >= 3.2, < 6.1   |
+| 1.0.0       | v1.x   | >= 2.2.0 | >= 3.2, < 6.1   |
+
+Esta biblioteca é testada (CI matrix) contra:
+
+| Ruby / Rails | 6.0 | 6.1 | 7.0 | 7.1 | 7.2 | 8.0 | 8.1 | Edge |
+| ------------ | --- | --- | --- | --- | --- | --- | --- | ---- |
+| 2.7          | ✅  | ✅  | ✅  | ✅  |     |     |     |      |
+| 3.0          | ✅  | ✅  | ✅  | ✅  |     |     |     |      |
+| 3.1          |     |     | ✅  | ✅  | ✅  |     |     |      |
+| 3.2          |     |     | ✅  | ✅  | ✅  | ✅  |     |      |
+| 3.3          |     |     | ✅  | ✅  | ✅  | ✅  | ✅  | ✅   |
+| 3.4          |     |     |     |     | ✅  | ✅  | ✅  | ✅   |
+| 4.x          |     |     |     |     |     |     | ✅  | ✅   |
+| Head         |     |     |     |     |     |     | ✅  | ✅   |
 
 > **Nota**: O ActiveRecord não é uma dependência, mas você pode adicionar um módulo para habilitar alguns métodos estáticos que foram projetados para serem usados ​​com seus [callbacks](https://guides.rubyonrails.org/active_record_callbacks.html).
 
@@ -167,7 +171,7 @@ order.observers.notify
 
 ### Compartilhando um contexto com seus observadores
 
-Para compartilhar um valor de contexto (qualquer tipo de objeto Ruby) com um ou mais observadores, você precisará usar a palavra-chave `:context` como o último argumento do  método `#attach`. Este recurso oferece a você uma oportunidade única de compartilhar um valor no momento de anexar um *observer*.
+Para compartilhar um valor de contexto (qualquer tipo de objeto Ruby) com um ou mais observadores, você precisará usar a palavra-chave `:context` como o último argumento do método `#attach`. Este recurso oferece a você uma oportunidade única de compartilhar um valor no momento de anexar um _observer_.
 
 Quando o método do observer receber dois argumentos, o primeiro será o sujeito e o segundo uma instância `Micro::Observers::Event` que terá o valor do contexto.
 
@@ -199,7 +203,7 @@ order.cancel!
 
 ### Compartilhando dados ao notificar os observadores
 
-Como mencionado anteriormente, o [`event context`](#compartilhando-um-contexto-com-seus-observadores) é um valor armazenado quando você anexa seu *observer*. Mas, às vezes, será útil enviar alguns dados adicionais ao transmitir um evento aos seus *observers*. O `event data` dá a você esta oportunidade única de compartilhar algum valor no momento da notificação.
+Como mencionado anteriormente, o [`event context`](#compartilhando-um-contexto-com-seus-observadores) é um valor armazenado quando você anexa seu _observer_. Mas, às vezes, será útil enviar alguns dados adicionais ao transmitir um evento aos seus _observers_. O `event data` dá a você esta oportunidade única de compartilhar algum valor no momento da notificação.
 
 ```ruby
 class Order
@@ -226,12 +230,13 @@ order.observers.notify(:changed, data: 1)
 ### O que é `Micro::Observers::Event`?
 
 O `Micro::Observers::Event` é o payload do evento. Veja abaixo todas as suas propriedades:
+
 - `#name` será o evento transmitido.
 - `#subject` será o sujeito observado.
-- `#context` serão [os dados de contexto](#compartilhando-um-contexto-com-seus-observadores) que foram definidos no momento em que você anexa o *observer*.
+- `#context` serão [os dados de contexto](#compartilhando-um-contexto-com-seus-observadores) que foram definidos no momento em que você anexa o _observer_.
 - `#data` será [o valor compartilhado na notificação dos observadores](#compartilhando-dados-ao-notificar-os-observadores).
 - `#ctx` é um apelido para o método `#context`.
-- `#subj` é um *alias* para o método `#subject`.
+- `#subj` é um _alias_ para o método `#subject`.
 
 [⬆️ Voltar para o índice](#índice-)
 
@@ -242,10 +247,11 @@ O método `observers.on()` permite que você anexe um callable (objeto que respo
 Normalmente, um callable tem uma responsabilidade bem definida (faz apenas uma coisa), por isso, tende a ser mais amigável com o [SRP (princípio de responsabilidade única)](https://en.wikipedia.org/wiki/Single-responsibility_principle) do que um observador convencional (que poderia ter N métodos para responder a diferentes tipos de notificação).
 
 Este método recebe as opções abaixo:
+
 1. `:event` o nome do evento esperado.
 2. `:call` o próprio callable.
 3. `:with` (opcional) pode definir o valor que será usado como argumento do objeto callable. Portanto, se for um `Proc`, uma instância de `Micro::Observers::Event` será recebida como o argumento `Proc` e sua saída será o argumento que pode ser chamado. Mas se essa opção não for definida, a instância `Micro::Observers::Event` será o argumento do callable.
-4. `:context` serão os dados de contexto que foram definidos no momento em que você anexa o *observer*.
+4. `:context` serão os dados de contexto que foram definidos no momento em que você anexa o _observer_.
 
 ```ruby
 class Person
@@ -289,7 +295,7 @@ person.name = 'Coutinho'
 
 ### Chamando os observadores
 
-Você pode usar um callable (uma classe, módulo ou objeto que responda ao método `call`) para ser seu *observer*. Para fazer isso, você só precisa usar o método `#call` em vez de `#notify`.
+Você pode usar um callable (uma classe, módulo ou objeto que responda ao método `call`) para ser seu _observer_. Para fazer isso, você só precisa usar o método `#call` em vez de `#notify`.
 
 ```ruby
 class Order
@@ -507,6 +513,7 @@ order.observers.count # 0
 Para fazer uso deste recurso, você precisa de um módulo adicional.
 
 Exemplo de Gemfile:
+
 ```ruby
 gem 'u-observers', require: 'u-observers/for/active_record'
 ```
@@ -515,7 +522,7 @@ Este recurso irá expor módulos que podem ser usados ​​para adicionar macro
 
 #### `.notify_observers_on()`
 
-O `notify_observers_on` permite que você defina um ou mais callbacks do `ActiveModel`/`ActiveRecord`, que serão usados ​​para notificar seus *observers*.
+O `notify_observers_on` permite que você defina um ou mais callbacks do `ActiveModel`/`ActiveRecord`, que serão usados ​​para notificar seus _observers_.
 
 ```ruby
 class Post < ActiveRecord::Base
@@ -558,7 +565,7 @@ end
 
 #### Anexando observers no nível da classe (`.notify_observers!()`)
 
-Enquanto o `notify_observers_on` apenas conecta o callback a um broadcast (você ainda precisa chamar `attach` em cada instância), o `notify_observers!` também **vincula os *observers* ao modelo no nível da classe** através da opção obrigatória `with:` — assim você nunca chama `observers.attach`. A opção `event:` nomeia o callback a ser usado; use `context:` para encaminhar um contexto para esses *observers*, e passe qualquer opção extra (por exemplo, `on:`) diretamente para o callback subjacente.
+Enquanto o `notify_observers_on` apenas conecta o callback a um broadcast (você ainda precisa chamar `attach` em cada instância), o `notify_observers!` também **vincula os _observers_ ao modelo no nível da classe** através da opção obrigatória `with:` — assim você nunca chama `observers.attach`. A opção `event:` nomeia o callback a ser usado; use `context:` para encaminhar um contexto para esses _observers_, e passe qualquer opção extra (por exemplo, `on:`) diretamente para o callback subjacente.
 
 ```ruby
 class Post < ActiveRecord::Base
@@ -590,9 +597,9 @@ Post.transaction { post.update(title: 'Hello again') }
 # Title: Hello again (de: class-level)
 ```
 
-> **Nota**: `event:` e `with:` são obrigatórios (`with:` aceita um único *observer* ou um array). Sem *observers* para anexar, use o `notify_observers_on`.
+> **Nota**: `event:` e `with:` são obrigatórios (`with:` aceita um único _observer_ ou um array). Sem _observers_ para anexar, use o `notify_observers_on`.
 
-Os *observers* declarados são inspecionáveis e removíveis no nível da classe:
+Os _observers_ declarados são inspecionáveis e removíveis no nível da classe:
 
 ```ruby
 Post.observers_to_notify
