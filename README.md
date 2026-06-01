@@ -27,6 +27,11 @@
   <img src="https://img.shields.io/badge/Rails%20%3E%3D%206.0%2C%20%3C%3D%20Edge-rails.svg?colorA=444&colorB=333" alt="Rails">
 </p>
 
+> [!IMPORTANT]
+> **No breaking API changes — ever.** `u-observers` is a dependency-free gem that many projects rely on (directly or transitively). Its role is to remain a stable, backward-compatible foundation — every change keeps existing code working.
+>
+> Major version bumps signal only that a Ruby or Rails version was dropped from the supported matrix — per SemVer, a dependency-floor change. Your code keeps working.
+
 This gem implements the observer pattern [[1]](https://en.wikipedia.org/wiki/Observer_pattern)[[2]](https://refactoring.guru/design-patterns/observer) (also known as publish/subscribe). It provides a simple mechanism for one object to inform a set of interested third-party objects when its state changes.
 
 Ruby's standard library [has an abstraction](https://ruby-doc.org/stdlib-2.7.1/libdoc/observer/rdoc/Observable.html) that enables you to use this pattern. But its design can conflict with other mainstream libraries, like the [`ActiveModel`/`ActiveRecord`](https://api.rubyonrails.org/classes/ActiveModel/Dirty.html#method-i-changed), which also has the [`changed`](https://ruby-doc.org/stdlib-2.7.1/libdoc/observer/rdoc/Observable.html#method-i-changed) method. In this case, the behavior of the Stdlib will be compromised.

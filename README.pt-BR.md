@@ -27,6 +27,11 @@
   <img src="https://img.shields.io/badge/Rails%20%3E%3D%206.0%2C%20%3C%3D%20Edge-rails.svg?colorA=444&colorB=333" alt="Rails">
 </p>
 
+> [!IMPORTANT]
+> **Nenhuma mudança que quebre a API — nunca.** `u-observers` é uma gem sem dependências da qual muitos projetos dependem (direta ou transitivamente). Seu papel é permanecer uma base estável e retrocompatível — toda mudança mantém o código existente funcionando.
+>
+> Saltos de versão major sinalizam apenas que uma versão de Ruby ou Rails foi removida da matriz suportada — pela SemVer, uma mudança no piso de dependências. Seu código continua funcionando.
+
 Esta gem implementa o padrão observer[[1]](https://en.wikipedia.org/wiki/Observer_pattern)[[2]](https://refactoring.guru/design-patterns/observer) (também conhecido como publicar/assinar). Ela fornece um mecanismo simples para um objeto informar um conjunto de objetos de terceiros interessados ​​quando seu estado muda.
 
 A biblioteca padrão do Ruby [tem uma abstração](https://ruby-doc.org/stdlib-2.7.1/libdoc/observer/rdoc/Observable.html) que permite usar esse padrão, mas seu design pode entrar em conflito com outras bibliotecas convencionais, como [`ActiveModel`/`ActiveRecord`](https://api.rubyonrails.org/classes/ActiveModel/Dirty.html#method-i-changed), que também tem o método [`changed`](https://ruby-doc.org/stdlib-2.7.1/libdoc/observer/rdoc/Observable.html#method-i-changed). Nesse caso, o comportamento ficaria comprometido por conta dessa sobrescrita de métodos.

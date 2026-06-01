@@ -2,6 +2,25 @@
 
 Notes for AI assistants working in `u-observers`.
 
+## Golden rule: no breaking API changes — ever
+
+`u-observers` is a dependency-free gem that many projects rely on, directly or
+transitively. **Its public API and runtime contracts won't break.** Every
+change must keep existing code working.
+
+Unlike `u-attributes`, this is *not* because it's a runtime dependency of
+`u-case` (it isn't — `u-case` depends on `kind` and `u-attributes`). The
+commitment stands on its own: the gem's role is to remain a stable,
+backward-compatible foundation for everything that depends on it.
+
+Major version bumps are reserved for dependency-floor changes (dropping a Ruby
+or Rails version from the supported matrix) per SemVer. They do **not** signal
+a behavior break.
+
+If a task as stated would require a breaking change to honor it, stop and
+surface that — propose a backward-compatible path, or flag that the request
+can't be satisfied without violating this rule. Don't ship the break.
+
 ## How to work in this repo
 
 ### 1. Think before coding
