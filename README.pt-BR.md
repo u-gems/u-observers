@@ -553,6 +553,40 @@ end
 # Title: Hello world (de: exemplo # 6)
 ```
 
+Você também pode vincular os *observers* ao modelo **no nível da classe** com `with:`, evitando ter que chamar `attach` em cada instância. Use `context:` para encaminhar um contexto para esses *observers*, e passe qualquer opção extra (por exemplo, `on:`) diretamente para o callback subjacente.
+
+```ruby
+class Post < ActiveRecord::Base
+  include ::Micro::Observers::For::ActiveRecord
+
+  # Anexa TitlePrinter (e TitlePrinterWithContext) em todo after_commit
+  # disparado por um update — sem precisar de `observers.attach` por instância.
+  notify_observers_on(
+    :after_commit,
+    with: [TitlePrinter, TitlePrinterWithContext],
+    context: { from: 'class-level' },
+    on: :update
+  )
+
+  # Equivalente a:
+  #
+  # after_commit(on: :update) do |record|
+  #   record.observers.attach(TitlePrinter, TitlePrinterWithContext, context: { from: 'class-level' })
+  #   record.observers.subject_changed!
+  #   record.observers.notify(:after_commit)
+  # end
+end
+
+Post.transaction { Post.create(title: 'Hello world') } # nada — `on: :update`
+
+post = Post.first
+Post.transaction { post.update(title: 'Hello again') }
+# Title: Hello again
+# Title: Hello again (de: class-level)
+```
+
+> **Nota**: `with:` aceita um único *observer* ou um array. Sem ele, o `notify_observers_on` mantém seu comportamento original (apenas conecta o callback a um broadcast; você anexa os *observers* por instância).
+
 [⬆️ Voltar para o índice](#índice-)
 
 #### `.notify_observers()`
