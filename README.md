@@ -591,6 +591,23 @@ Post.transaction { post.update(title: 'Hello again') }
 
 > **Note**: `event:` and `with:` are required (`with:` accepts a single observer or an array). Without observers to attach, use `notify_observers_on` instead.
 
+The declared observers are introspectable and detachable at the class level:
+
+```ruby
+Post.observers_to_notify
+# { after_commit: [TitlePrinter, TitlePrinterWithContext] }
+
+# Stop notifying a given observer (from every callback, or scope it with `from:`)
+Post.detach_observers_to_notify(TitlePrinterWithContext)
+# { after_commit: [TitlePrinter] }
+
+Post.detach_observers_to_notify(TitlePrinter, from: :after_commit)
+# {}
+
+# With no observers, clears the callback(s) entirely:
+Post.detach_observers_to_notify(from: :after_commit)
+```
+
 [⬆️ &nbsp; Back to Top](#table-of-contents-)
 
 #### `.notify_observers()`
