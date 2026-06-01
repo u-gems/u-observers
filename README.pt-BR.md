@@ -59,7 +59,7 @@ Por causa desse problema, decidi criar uma gem que encapsula o padrão sem alter
     - [Desanexando observers](#desanexando-observers)
     - [Integrações ActiveRecord e ActiveModel](#integrações-activerecord-e-activemodel)
       - [`.notify_observers_on()`](#notify_observers_on)
-      - [`.notify_observers_event()`](#notify_observers_event)
+      - [`.notify_observers!()`](#anexando-observers-no-nível-da-classe-notify_observers)
       - [`.notify_observers()`](#notify_observers)
   - [Desenvolvimento](#desenvolvimento)
   - [Contribuindo](#contribuindo)
@@ -556,9 +556,9 @@ end
 
 [⬆️ Voltar para o índice](#índice-)
 
-#### `.notify_observers_event()`
+#### Anexando observers no nível da classe (`.notify_observers!()`)
 
-Enquanto o `notify_observers_on` apenas conecta o callback a um broadcast (você ainda precisa chamar `attach` em cada instância), o `notify_observers_event` também **vincula os *observers* ao modelo no nível da classe** através da opção obrigatória `with:` — assim você nunca chama `observers.attach`. Use `context:` para encaminhar um contexto para esses *observers*, e passe qualquer opção extra (por exemplo, `on:`) diretamente para o callback subjacente.
+Enquanto o `notify_observers_on` apenas conecta o callback a um broadcast (você ainda precisa chamar `attach` em cada instância), o `notify_observers!` também **vincula os *observers* ao modelo no nível da classe** através da opção obrigatória `with:` — assim você nunca chama `observers.attach`. A opção `event:` nomeia o callback a ser usado; use `context:` para encaminhar um contexto para esses *observers*, e passe qualquer opção extra (por exemplo, `on:`) diretamente para o callback subjacente.
 
 ```ruby
 class Post < ActiveRecord::Base
@@ -566,11 +566,11 @@ class Post < ActiveRecord::Base
 
   # Anexa TitlePrinter (e TitlePrinterWithContext) em todo after_commit
   # disparado por um update — sem precisar de `observers.attach` por instância.
-  notify_observers_event(
-    :after_commit,
+  notify_observers!(
+    on: :update,
     with: [TitlePrinter, TitlePrinterWithContext],
-    context: { from: 'class-level' },
-    on: :update
+    event: :after_commit,
+    context: { from: 'class-level' }
   )
 
   # Equivalente a:
@@ -590,7 +590,7 @@ Post.transaction { post.update(title: 'Hello again') }
 # Title: Hello again (de: class-level)
 ```
 
-> **Nota**: `with:` aceita um único *observer* ou um array, e é obrigatório (sem *observers* para anexar, use o `notify_observers_on`).
+> **Nota**: `event:` e `with:` são obrigatórios (`with:` aceita um único *observer* ou um array). Sem *observers* para anexar, use o `notify_observers_on`.
 
 [⬆️ Voltar para o índice](#índice-)
 

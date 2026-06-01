@@ -64,14 +64,14 @@ if ACTIVERECORD_AVAILABLE
       )
     end
 
-    # Declarative form: `notify_observers_event` binds the observers to the
-    # model at the class level via `with:`, so callers no longer need to
-    # `attach` them on every instance.
+    # Declarative form: `notify_observers!` binds the observers to the model at
+    # the class level via `with:`, so callers no longer need to `attach` them on
+    # every instance.
 
     class Law < ActiveRecord::Base
       include ::Micro::Observers::For::ActiveRecord
 
-      notify_observers_event(:after_commit, with: TitlePrinter)
+      notify_observers!(event: :after_commit, with: TitlePrinter)
     end
 
     def test_observers_declared_at_the_class_level
@@ -83,11 +83,11 @@ if ACTIVERECORD_AVAILABLE
     class Album < ActiveRecord::Base
       include ::Micro::Observers::For::ActiveRecord
 
-      notify_observers_event(
-        :after_commit,
+      notify_observers!(
+        on: :update,
         with: [TitlePrinter, TitlePrinterWithContext],
-        context: { from: 'studio' },
-        on: :update
+        event: :after_commit,
+        context: { from: 'studio' }
       )
     end
 
@@ -110,14 +110,14 @@ if ACTIVERECORD_AVAILABLE
       )
     end
 
-    def test_notify_observers_event_requires_observers
+    def test_notify_observers_bang_requires_observers
       error = assert_raises(ArgumentError) do
         Class.new(ActiveRecord::Base) do
           self.table_name = 'laws'
 
           include ::Micro::Observers::For::ActiveRecord
 
-          notify_observers_event(:after_commit, with: nil)
+          notify_observers!(event: :after_commit, with: nil)
         end
       end
 
