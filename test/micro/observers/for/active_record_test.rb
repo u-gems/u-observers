@@ -64,13 +64,14 @@ if ACTIVERECORD_AVAILABLE
       )
     end
 
-    # Declarative form: bind the observers to the model at the class level via
-    # `with:`, so callers no longer need to `attach` them on every instance.
+    # Declarative form: `notify_observers_event` binds the observers to the
+    # model at the class level via `with:`, so callers no longer need to
+    # `attach` them on every instance.
 
     class Law < ActiveRecord::Base
       include ::Micro::Observers::For::ActiveRecord
 
-      notify_observers_on(:after_commit, with: TitlePrinter)
+      notify_observers_event(:after_commit, with: TitlePrinter)
     end
 
     def test_observers_declared_at_the_class_level
@@ -82,7 +83,7 @@ if ACTIVERECORD_AVAILABLE
     class Album < ActiveRecord::Base
       include ::Micro::Observers::For::ActiveRecord
 
-      notify_observers_on(
+      notify_observers_event(
         :after_commit,
         with: [TitlePrinter, TitlePrinterWithContext],
         context: { from: 'studio' },
@@ -107,6 +108,20 @@ if ACTIVERECORD_AVAILABLE
           'Title: Baz, from: studio'
         ], MemoryOutput.history
       )
+    end
+
+    def test_notify_observers_event_requires_observers
+      error = assert_raises(ArgumentError) do
+        Class.new(ActiveRecord::Base) do
+          self.table_name = 'laws'
+
+          include ::Micro::Observers::For::ActiveRecord
+
+          notify_observers_event(:after_commit, with: nil)
+        end
+      end
+
+      assert_equal('no observers (expected at least one observer in `with:`)', error.message)
     end
   end
 end

@@ -59,6 +59,7 @@ Por causa desse problema, decidi criar uma gem que encapsula o padrão sem alter
     - [Desanexando observers](#desanexando-observers)
     - [Integrações ActiveRecord e ActiveModel](#integrações-activerecord-e-activemodel)
       - [`.notify_observers_on()`](#notify_observers_on)
+      - [`.notify_observers_event()`](#notify_observers_event)
       - [`.notify_observers()`](#notify_observers)
   - [Desenvolvimento](#desenvolvimento)
   - [Contribuindo](#contribuindo)
@@ -553,7 +554,11 @@ end
 # Title: Hello world (de: exemplo # 6)
 ```
 
-Você também pode vincular os *observers* ao modelo **no nível da classe** com `with:`, evitando ter que chamar `attach` em cada instância. Use `context:` para encaminhar um contexto para esses *observers*, e passe qualquer opção extra (por exemplo, `on:`) diretamente para o callback subjacente.
+[⬆️ Voltar para o índice](#índice-)
+
+#### `.notify_observers_event()`
+
+Enquanto o `notify_observers_on` apenas conecta o callback a um broadcast (você ainda precisa chamar `attach` em cada instância), o `notify_observers_event` também **vincula os *observers* ao modelo no nível da classe** através da opção obrigatória `with:` — assim você nunca chama `observers.attach`. Use `context:` para encaminhar um contexto para esses *observers*, e passe qualquer opção extra (por exemplo, `on:`) diretamente para o callback subjacente.
 
 ```ruby
 class Post < ActiveRecord::Base
@@ -561,7 +566,7 @@ class Post < ActiveRecord::Base
 
   # Anexa TitlePrinter (e TitlePrinterWithContext) em todo after_commit
   # disparado por um update — sem precisar de `observers.attach` por instância.
-  notify_observers_on(
+  notify_observers_event(
     :after_commit,
     with: [TitlePrinter, TitlePrinterWithContext],
     context: { from: 'class-level' },
@@ -585,7 +590,7 @@ Post.transaction { post.update(title: 'Hello again') }
 # Title: Hello again (de: class-level)
 ```
 
-> **Nota**: `with:` aceita um único *observer* ou um array. Sem ele, o `notify_observers_on` mantém seu comportamento original (apenas conecta o callback a um broadcast; você anexa os *observers* por instância).
+> **Nota**: `with:` aceita um único *observer* ou um array, e é obrigatório (sem *observers* para anexar, use o `notify_observers_on`).
 
 [⬆️ Voltar para o índice](#índice-)
 

@@ -60,6 +60,7 @@ Because of this issue, I decided to create a gem that encapsulates the pattern w
     - [Detaching observers](#detaching-observers)
     - [ActiveRecord and ActiveModel integrations](#activerecord-and-activemodel-integrations)
       - [`.notify_observers_on()`](#notify_observers_on)
+      - [`.notify_observers_event()`](#notify_observers_event)
       - [`.notify_observers()`](#notify_observers)
   - [Development](#development)
   - [Contributing](#contributing)
@@ -552,7 +553,11 @@ end
 # Title: Hello world (from: example #6)
 ```
 
-You can also bind the observers to the model **at the class level** with `with:`, so you don't have to `attach` them on every instance. Use `context:` to forward a context to those observers, and pass any extra option (e.g. `on:`) straight through to the underlying callback.
+[⬆️ &nbsp; Back to Top](#table-of-contents-)
+
+#### `.notify_observers_event()`
+
+While `notify_observers_on` only wires the callback to a broadcast (you still `attach` the observers on every instance), `notify_observers_event` also **binds the observers to the model at the class level** through the required `with:` option — so you never call `observers.attach` yourself. Use `context:` to forward a context to those observers, and pass any extra option (e.g. `on:`) straight through to the underlying callback.
 
 ```ruby
 class Post < ActiveRecord::Base
@@ -560,7 +565,7 @@ class Post < ActiveRecord::Base
 
   # Attach TitlePrinter (and TitlePrinterWithContext) on every after_commit
   # triggered by an update — no per-instance `observers.attach` needed.
-  notify_observers_on(
+  notify_observers_event(
     :after_commit,
     with: [TitlePrinter, TitlePrinterWithContext],
     context: { from: 'class-level' },
@@ -584,7 +589,7 @@ Post.transaction { post.update(title: 'Hello again') }
 # Title: Hello again (from: class-level)
 ```
 
-> **Note**: `with:` accepts a single observer or an array. Without it, `notify_observers_on` keeps its original behavior (it only wires the callback to a broadcast; you attach observers per instance).
+> **Note**: `with:` accepts a single observer or an array, and is required (without observers to attach, use `notify_observers_on` instead).
 
 [⬆️ &nbsp; Back to Top](#table-of-contents-)
 
