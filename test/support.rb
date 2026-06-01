@@ -1,7 +1,4 @@
-if ENV.fetch('ACTIVERECORD_VERSION', '6.2') < '6.2'
-  require 'active_record'
-  require 'sqlite3'
-
+if ACTIVERECORD_AVAILABLE
   ActiveRecord::Base.establish_connection(
     host: 'localhost',
     adapter: 'sqlite3',
