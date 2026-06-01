@@ -59,6 +59,7 @@ Por causa desse problema, decidi criar uma gem que encapsula o padrão sem alter
     - [Desanexando observers](#desanexando-observers)
     - [Integrações ActiveRecord e ActiveModel](#integrações-activerecord-e-activemodel)
       - [`.notify_observers_on()`](#notify_observers_on)
+      - [`.notify_observers!()`](#anexando-observers-no-nível-da-classe-notify_observers)
       - [`.notify_observers()`](#notify_observers)
   - [Desenvolvimento](#desenvolvimento)
   - [Contribuindo](#contribuindo)
@@ -551,6 +552,61 @@ end
 # A mensagem abaixo será impressa pelos observadores (TitlePrinter, TitlePrinterWithContext):
 # Title: Hello world
 # Title: Hello world (de: exemplo # 6)
+```
+
+[⬆️ Voltar para o índice](#índice-)
+
+#### Anexando observers no nível da classe (`.notify_observers!()`)
+
+Enquanto o `notify_observers_on` apenas conecta o callback a um broadcast (você ainda precisa chamar `attach` em cada instância), o `notify_observers!` também **vincula os *observers* ao modelo no nível da classe** através da opção obrigatória `with:` — assim você nunca chama `observers.attach`. A opção `event:` nomeia o callback a ser usado; use `context:` para encaminhar um contexto para esses *observers*, e passe qualquer opção extra (por exemplo, `on:`) diretamente para o callback subjacente.
+
+```ruby
+class Post < ActiveRecord::Base
+  include ::Micro::Observers::For::ActiveRecord
+
+  # Anexa TitlePrinter (e TitlePrinterWithContext) em todo after_commit
+  # disparado por um update — sem precisar de `observers.attach` por instância.
+  notify_observers!(
+    on: :update,
+    with: [TitlePrinter, TitlePrinterWithContext],
+    event: :after_commit,
+    context: { from: 'class-level' }
+  )
+
+  # Equivalente a:
+  #
+  # after_commit(on: :update) do |record|
+  #   record.observers.attach(TitlePrinter, TitlePrinterWithContext, context: { from: 'class-level' })
+  #   record.observers.subject_changed!
+  #   record.observers.notify(:after_commit)
+  # end
+end
+
+Post.transaction { Post.create(title: 'Hello world') } # nada — `on: :update`
+
+post = Post.first
+Post.transaction { post.update(title: 'Hello again') }
+# Title: Hello again
+# Title: Hello again (de: class-level)
+```
+
+> **Nota**: `event:` e `with:` são obrigatórios (`with:` aceita um único *observer* ou um array). Sem *observers* para anexar, use o `notify_observers_on`.
+
+Os *observers* declarados são inspecionáveis e removíveis no nível da classe:
+
+```ruby
+Post.observers_to_notify
+# { after_commit: [TitlePrinter, TitlePrinterWithContext] }
+
+# Para de notificar um dado observer (de todos os callbacks, ou use `from:` para limitar)
+Post.detach_observers_to_notify(TitlePrinterWithContext)
+# { after_commit: [TitlePrinter] }
+
+Post.detach_observers_to_notify(TitlePrinter, from: :after_commit)
+# {}
+
+# Sem observers, remove o(s) callback(s) por completo:
+Post.detach_observers_to_notify(from: :after_commit)
 ```
 
 [⬆️ Voltar para o índice](#índice-)

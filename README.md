@@ -60,6 +60,7 @@ Because of this issue, I decided to create a gem that encapsulates the pattern w
     - [Detaching observers](#detaching-observers)
     - [ActiveRecord and ActiveModel integrations](#activerecord-and-activemodel-integrations)
       - [`.notify_observers_on()`](#notify_observers_on)
+      - [`.notify_observers!()`](#attaching-observers-at-the-class-level-notify_observers)
       - [`.notify_observers()`](#notify_observers)
   - [Development](#development)
   - [Contributing](#contributing)
@@ -550,6 +551,61 @@ end
 # The message below will be printed by the observers (TitlePrinter, TitlePrinterWithContext):
 # Title: Hello world
 # Title: Hello world (from: example #6)
+```
+
+[⬆️ &nbsp; Back to Top](#table-of-contents-)
+
+#### Attaching observers at the class level (`.notify_observers!()`)
+
+While `notify_observers_on` only wires the callback to a broadcast (you still `attach` the observers on every instance), `notify_observers!` also **binds the observers to the model at the class level** through the required `with:` option — so you never call `observers.attach` yourself. The `event:` option names the callback to hook; use `context:` to forward a context to those observers, and pass any extra option (e.g. `on:`) straight through to the underlying callback.
+
+```ruby
+class Post < ActiveRecord::Base
+  include ::Micro::Observers::For::ActiveRecord
+
+  # Attach TitlePrinter (and TitlePrinterWithContext) on every after_commit
+  # triggered by an update — no per-instance `observers.attach` needed.
+  notify_observers!(
+    on: :update,
+    with: [TitlePrinter, TitlePrinterWithContext],
+    event: :after_commit,
+    context: { from: 'class-level' }
+  )
+
+  # Equivalent to:
+  #
+  # after_commit(on: :update) do |record|
+  #   record.observers.attach(TitlePrinter, TitlePrinterWithContext, context: { from: 'class-level' })
+  #   record.observers.subject_changed!
+  #   record.observers.notify(:after_commit)
+  # end
+end
+
+Post.transaction { Post.create(title: 'Hello world') } # nothing — `on: :update`
+
+post = Post.first
+Post.transaction { post.update(title: 'Hello again') }
+# Title: Hello again
+# Title: Hello again (from: class-level)
+```
+
+> **Note**: `event:` and `with:` are required (`with:` accepts a single observer or an array). Without observers to attach, use `notify_observers_on` instead.
+
+The declared observers are introspectable and detachable at the class level:
+
+```ruby
+Post.observers_to_notify
+# { after_commit: [TitlePrinter, TitlePrinterWithContext] }
+
+# Stop notifying a given observer (from every callback, or scope it with `from:`)
+Post.detach_observers_to_notify(TitlePrinterWithContext)
+# { after_commit: [TitlePrinter] }
+
+Post.detach_observers_to_notify(TitlePrinter, from: :after_commit)
+# {}
+
+# With no observers, clears the callback(s) entirely:
+Post.detach_observers_to_notify(from: :after_commit)
 ```
 
 [⬆️ &nbsp; Back to Top](#table-of-contents-)

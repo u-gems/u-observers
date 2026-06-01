@@ -13,6 +13,14 @@ if ACTIVERECORD_AVAILABLE
     create_table :books do |t|
       t.column :title, :string
     end
+
+    create_table :laws do |t|
+      t.column :title, :string
+    end
+
+    create_table :albums do |t|
+      t.column :title, :string
+    end
   end
 end
 
