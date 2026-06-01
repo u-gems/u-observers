@@ -14,6 +14,7 @@ Gem::Specification.new do |spec|
   spec.metadata['homepage_uri'] = spec.homepage
   spec.metadata['source_code_uri'] = 'https://github.com/serradura/u-observers'
   spec.metadata['changelog_uri'] = 'https://github.com/serradura/u-observers/releases'
+  spec.metadata['bug_tracker_uri'] = "#{spec.homepage}/issues"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
@@ -24,8 +25,9 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.required_ruby_version = Gem::Requirement.new('>= 2.2.0')
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.7.0')
 
+  spec.add_development_dependency 'appraisal', '~> 2.5'
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'rake', '~> 13.0'
 end

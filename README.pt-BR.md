@@ -5,8 +5,6 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/ruby->%3D%202.2.0-ruby.svg?colorA=99004d&colorB=cc0066" alt="Ruby">
-
   <a href="https://rubygems.org/gems/u-observers">
     <img alt="Gem" src="https://img.shields.io/gem/v/u-observers.svg?style=flat-square">
   </a>
@@ -15,13 +13,18 @@
     <img alt="Build Status" src="https://github.com/serradura/u-observers/actions/workflows/ci.yml/badge.svg">
   </a>
 
-  <a href="https://codeclimate.com/github/serradura/u-observers/maintainability">
-    <img alt="Maintainability" src="https://api.codeclimate.com/v1/badges/e72ffa84bc95c59823f2/maintainability">
+  <a href="https://qlty.sh/gh/serradura/projects/u-observers">
+    <img alt="Maintainability" src="https://qlty.sh/gh/serradura/projects/u-observers/maintainability.svg">
   </a>
 
-  <a href="https://codeclimate.com/github/serradura/u-observers/test_coverage">
-    <img alt="Test Coverage" src="https://api.codeclimate.com/v1/badges/e72ffa84bc95c59823f2/test_coverage">
+  <a href="https://qlty.sh/gh/serradura/projects/u-observers">
+    <img alt="Code Coverage" src="https://qlty.sh/gh/serradura/projects/u-observers/coverage.svg">
   </a>
+
+  <br>
+
+  <img src="https://img.shields.io/badge/Ruby%20%3E%3D%202.7%2C%20%3C%3D%20Head-ruby.svg?colorA=444&colorB=333" alt="Ruby">
+  <img src="https://img.shields.io/badge/Rails%20%3E%3D%206.0%2C%20%3C%3D%20Edge-rails.svg?colorA=444&colorB=333" alt="Rails">
 </p>
 
 Esta gem implementa o padrão observer[[1]](https://en.wikipedia.org/wiki/Observer_pattern)[[2]](https://refactoring.guru/design-patterns/observer) (também conhecido como publicar/assinar). Ela fornece um mecanismo simples para um objeto informar um conjunto de objetos de terceiros interessados ​​quando seu estado muda.
@@ -69,7 +72,7 @@ gem 'u-observers'
 
 | u-observers | branch  | ruby     | activerecord  |
 | ----------- | ------- | -------- | ------------- |
-| unreleased  | main    | >= 2.2.0 | >= 3.2, < 6.1 |
+| unreleased  | main    | >= 2.7.0 | >= 6.0, <= Edge |
 | 2.3.0       | v2.x    | >= 2.2.0 | >= 3.2, < 6.1 |
 | 1.0.0       | v1.x    | >= 2.2.0 | >= 3.2, < 6.1 |
 
