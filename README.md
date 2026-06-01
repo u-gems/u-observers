@@ -552,6 +552,40 @@ end
 # Title: Hello world (from: example #6)
 ```
 
+You can also bind the observers to the model **at the class level** with `with:`, so you don't have to `attach` them on every instance. Use `context:` to forward a context to those observers, and pass any extra option (e.g. `on:`) straight through to the underlying callback.
+
+```ruby
+class Post < ActiveRecord::Base
+  include ::Micro::Observers::For::ActiveRecord
+
+  # Attach TitlePrinter (and TitlePrinterWithContext) on every after_commit
+  # triggered by an update — no per-instance `observers.attach` needed.
+  notify_observers_on(
+    :after_commit,
+    with: [TitlePrinter, TitlePrinterWithContext],
+    context: { from: 'class-level' },
+    on: :update
+  )
+
+  # Equivalent to:
+  #
+  # after_commit(on: :update) do |record|
+  #   record.observers.attach(TitlePrinter, TitlePrinterWithContext, context: { from: 'class-level' })
+  #   record.observers.subject_changed!
+  #   record.observers.notify(:after_commit)
+  # end
+end
+
+Post.transaction { Post.create(title: 'Hello world') } # nothing — `on: :update`
+
+post = Post.first
+Post.transaction { post.update(title: 'Hello again') }
+# Title: Hello again
+# Title: Hello again (from: class-level)
+```
+
+> **Note**: `with:` accepts a single observer or an array. Without it, `notify_observers_on` keeps its original behavior (it only wires the callback to a broadcast; you attach observers per instance).
+
 [⬆️ &nbsp; Back to Top](#table-of-contents-)
 
 #### `.notify_observers()`

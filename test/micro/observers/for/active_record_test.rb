@@ -63,5 +63,50 @@ if ACTIVERECORD_AVAILABLE
         ], MemoryOutput.history
       )
     end
+
+    # Declarative form: bind the observers to the model at the class level via
+    # `with:`, so callers no longer need to `attach` them on every instance.
+
+    class Law < ActiveRecord::Base
+      include ::Micro::Observers::For::ActiveRecord
+
+      notify_observers_on(:after_commit, with: TitlePrinter)
+    end
+
+    def test_observers_declared_at_the_class_level
+      Law.transaction { Law.create(title: 'Foo') }
+
+      assert_equal(['Title: Foo'], MemoryOutput.history)
+    end
+
+    class Album < ActiveRecord::Base
+      include ::Micro::Observers::For::ActiveRecord
+
+      notify_observers_on(
+        :after_commit,
+        with: [TitlePrinter, TitlePrinterWithContext],
+        context: { from: 'studio' },
+        on: :update
+      )
+    end
+
+    def test_class_level_observers_with_context_and_a_callback_option
+      album = nil
+
+      # `on: :update` is forwarded to the AR callback, so create notifies nothing.
+      Album.transaction { album = Album.create(title: 'Bar') }
+
+      assert_equal([], MemoryOutput.history)
+
+      Album.transaction { album.update(title: 'Baz') }
+
+      # `context:` reaches the observers — TitlePrinterWithContext sees `from: studio`.
+      assert_equal(
+        [
+          'Title: Baz',
+          'Title: Baz, from: studio'
+        ], MemoryOutput.history
+      )
+    end
   end
 end
