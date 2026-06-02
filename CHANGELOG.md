@@ -63,7 +63,7 @@ change, not a behavior break.
 ### Added
 
 - Allow defining callable observers with a context.
-- Portuguese documentation ([`README.pt-BR.md`](https://github.com/serradura/u-observers/blob/main/README.pt-BR.md)).
+- Portuguese documentation ([`README.pt-BR.md`](https://github.com/u-gems/u-observers/blob/main/README.pt-BR.md)).
 
 ## [2.0.0] - 2020-10-06
 
@@ -148,19 +148,19 @@ change, not a behavior break.
 
 - Initial release — the `Micro::Observers` implementation of the observer pattern.
 
-[Unreleased]: https://github.com/serradura/u-observers/compare/v2.3.0...HEAD
-[2.3.0]: https://github.com/serradura/u-observers/compare/v2.2.1...v2.3.0
-[2.2.1]: https://github.com/serradura/u-observers/compare/v2.2.0...v2.2.1
-[2.2.0]: https://github.com/serradura/u-observers/compare/v2.1.0...v2.2.0
-[2.1.0]: https://github.com/serradura/u-observers/compare/v2.0.0...v2.1.0
-[2.0.0]: https://github.com/serradura/u-observers/compare/v1.0.0...v2.0.0
-[1.0.0]: https://github.com/serradura/u-observers/compare/v0.9.0...v1.0.0
-[0.9.0]: https://github.com/serradura/u-observers/compare/v0.8.0...v0.9.0
-[0.8.0]: https://github.com/serradura/u-observers/compare/v0.7.0...v0.8.0
-[0.7.0]: https://github.com/serradura/u-observers/compare/v0.6.0...v0.7.0
-[0.6.0]: https://github.com/serradura/u-observers/compare/v0.5.0...v0.6.0
-[0.5.0]: https://github.com/serradura/u-observers/compare/v0.4.0...v0.5.0
-[0.4.0]: https://github.com/serradura/u-observers/compare/v0.3.0...v0.4.0
-[0.3.0]: https://github.com/serradura/u-observers/compare/v0.2.0...v0.3.0
-[0.2.0]: https://github.com/serradura/u-observers/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/serradura/u-observers/releases/tag/v0.1.0
+[Unreleased]: https://github.com/u-gems/u-observers/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/u-gems/u-observers/compare/v2.2.1...v2.3.0
+[2.2.1]: https://github.com/u-gems/u-observers/compare/v2.2.0...v2.2.1
+[2.2.0]: https://github.com/u-gems/u-observers/compare/v2.1.0...v2.2.0
+[2.1.0]: https://github.com/u-gems/u-observers/compare/v2.0.0...v2.1.0
+[2.0.0]: https://github.com/u-gems/u-observers/compare/v1.0.0...v2.0.0
+[1.0.0]: https://github.com/u-gems/u-observers/compare/v0.9.0...v1.0.0
+[0.9.0]: https://github.com/u-gems/u-observers/compare/v0.8.0...v0.9.0
+[0.8.0]: https://github.com/u-gems/u-observers/compare/v0.7.0...v0.8.0
+[0.7.0]: https://github.com/u-gems/u-observers/compare/v0.6.0...v0.7.0
+[0.6.0]: https://github.com/u-gems/u-observers/compare/v0.5.0...v0.6.0
+[0.5.0]: https://github.com/u-gems/u-observers/compare/v0.4.0...v0.5.0
+[0.4.0]: https://github.com/u-gems/u-observers/compare/v0.3.0...v0.4.0
+[0.3.0]: https://github.com/u-gems/u-observers/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/u-gems/u-observers/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/u-gems/u-observers/releases/tag/v0.1.0

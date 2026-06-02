@@ -8,12 +8,12 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Simple and powerful implementation of the observer pattern.}
   spec.description   = %q{Simple and powerful implementation of the observer pattern.}
-  spec.homepage      = 'https://github.com/serradura/u-observers'
+  spec.homepage      = 'https://github.com/u-gems/u-observers'
   spec.license       = 'MIT'
 
   spec.metadata['homepage_uri'] = spec.homepage
-  spec.metadata['source_code_uri'] = 'https://github.com/serradura/u-observers'
-  spec.metadata['changelog_uri'] = 'https://github.com/serradura/u-observers/blob/main/CHANGELOG.md'
+  spec.metadata['source_code_uri'] = 'https://github.com/u-gems/u-observers'
+  spec.metadata['changelog_uri'] = 'https://github.com/u-gems/u-observers/blob/main/CHANGELOG.md'
   spec.metadata['bug_tracker_uri'] = "#{spec.homepage}/issues"
 
   # Specify which files should be added to the gem when it is released.

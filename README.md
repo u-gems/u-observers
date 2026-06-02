@@ -7,12 +7,12 @@
   <a href="https://rubygems.org/gems/u-observers">
     <img alt="Gem" src="https://img.shields.io/gem/v/u-observers.svg?style=flat-square">
   </a>
-  <a href="https://github.com/serradura/u-observers/actions/workflows/ci.yml">
-    <img alt="Build Status" src="https://github.com/serradura/u-observers/actions/workflows/ci.yml/badge.svg">
+  <a href="https://github.com/u-gems/u-observers/actions/workflows/ci.yml">
+    <img alt="Build Status" src="https://github.com/u-gems/u-observers/actions/workflows/ci.yml/badge.svg">
   </a>
   <br/>
-  <a href="https://qlty.sh/gh/serradura/projects/u-observers"><img src="https://qlty.sh/gh/serradura/projects/u-observers/maintainability.svg" alt="Maintainability" /></a>
-  <a href="https://qlty.sh/gh/serradura/projects/u-observers"><img src="https://qlty.sh/gh/serradura/projects/u-observers/coverage.svg" alt="Code Coverage" /></a>
+  <a href="https://qlty.sh/gh/u-gems/projects/u-observers"><img src="https://qlty.sh/gh/u-gems/projects/u-observers/maintainability.svg" alt="Maintainability" /></a>
+  <a href="https://qlty.sh/gh/u-gems/projects/u-observers"><img src="https://qlty.sh/gh/u-gems/projects/u-observers/coverage.svg" alt="Code Coverage" /></a>
   <br/>
   <img src="https://img.shields.io/badge/Ruby%20%3E%3D%202.7%2C%20%3C%3D%20Head-ruby.svg?colorA=444&colorB=333" alt="Ruby">
   <img src="https://img.shields.io/badge/Rails%20%3E%3D%206.0%2C%20%3C%3D%20Edge-rails.svg?colorA=444&colorB=333" alt="Rails">
@@ -29,7 +29,7 @@ Ruby's standard library [has an abstraction](https://ruby-doc.org/stdlib-2.7.1/l
 
 Because of this issue, I decided to create a gem that encapsulates the pattern without changing the object's implementation so much. The `Micro::Observers` includes just one instance method in the target class (its instance will be the observed subject/object).
 
-> **Note:** Você entende português? 🇧🇷&nbsp;🇵🇹 Verifique o [README traduzido em pt-BR](https://github.com/serradura/u-observers/blob/main/README.pt-BR.md).
+> **Note:** Você entende português? 🇧🇷&nbsp;🇵🇹 Verifique o [README traduzido em pt-BR](https://github.com/u-gems/u-observers/blob/main/README.pt-BR.md).
 
 # Table of contents <!-- omit in toc -->
 
@@ -667,7 +667,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/serradura/u-observers. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/serradura/u-observers/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/u-gems/u-observers. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/u-gems/u-observers/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
 
@@ -675,4 +675,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the `Micro::Observers` project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/serradura/u-observers/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the `Micro::Observers` project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/u-gems/u-observers/blob/master/CODE_OF_CONDUCT.md).

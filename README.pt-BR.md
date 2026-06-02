@@ -7,12 +7,12 @@
   <a href="https://rubygems.org/gems/u-observers">
     <img alt="Gem" src="https://img.shields.io/gem/v/u-observers.svg?style=flat-square">
   </a>
-  <a href="https://github.com/serradura/u-observers/actions/workflows/ci.yml">
-    <img alt="Build Status" src="https://github.com/serradura/u-observers/actions/workflows/ci.yml/badge.svg">
+  <a href="https://github.com/u-gems/u-observers/actions/workflows/ci.yml">
+    <img alt="Build Status" src="https://github.com/u-gems/u-observers/actions/workflows/ci.yml/badge.svg">
   </a>
   <br/>
-  <a href="https://qlty.sh/gh/serradura/projects/u-observers"><img src="https://qlty.sh/gh/serradura/projects/u-observers/maintainability.svg" alt="Maintainability" /></a>
-  <a href="https://qlty.sh/gh/serradura/projects/u-observers"><img src="https://qlty.sh/gh/serradura/projects/u-observers/coverage.svg" alt="Code Coverage" /></a>
+  <a href="https://qlty.sh/gh/u-gems/projects/u-observers"><img src="https://qlty.sh/gh/u-gems/projects/u-observers/maintainability.svg" alt="Maintainability" /></a>
+  <a href="https://qlty.sh/gh/u-gems/projects/u-observers"><img src="https://qlty.sh/gh/u-gems/projects/u-observers/coverage.svg" alt="Code Coverage" /></a>
   <br/>
   <img src="https://img.shields.io/badge/Ruby%20%3E%3D%202.7%2C%20%3C%3D%20Head-ruby.svg?colorA=444&colorB=333" alt="Ruby">
   <img src="https://img.shields.io/badge/Rails%20%3E%3D%206.0%2C%20%3C%3D%20Edge-rails.svg?colorA=444&colorB=333" alt="Rails">
@@ -669,7 +669,7 @@ Para instalar esta gem em sua máquina local, execute `bundle exec rake install`
 
 ## Contribuindo
 
-Reportar bugs e solicitações de pull-requests são bem-vindos no GitHub em https://github.com/serradura/u-observers. Este projeto pretende ser um espaço seguro e acolhedor para colaboração, e espera-se que os colaboradores sigam o [código de conduta](https://github.com/serradura/u-observers/blob/master/CODE_OF_CONDUCT.md).
+Reportar bugs e solicitações de pull-requests são bem-vindos no GitHub em https://github.com/u-gems/u-observers. Este projeto pretende ser um espaço seguro e acolhedor para colaboração, e espera-se que os colaboradores sigam o [código de conduta](https://github.com/u-gems/u-observers/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
 
@@ -677,4 +677,4 @@ A gem está disponível como código aberto sob os termos da [Licença MIT](http
 
 ## Código de conduta
 
-Espera-se que todos que interagem nas bases de código do projeto `Micro::Observers`, rastreadores de problemas, salas de bate-papo e listas de discussão sigam o [código de conduta](https://github.com/serradura/u-observers/blob/master/CODE_OF_CONDUCT.md).
+Espera-se que todos que interagem nas bases de código do projeto `Micro::Observers`, rastreadores de problemas, salas de bate-papo e listas de discussão sigam o [código de conduta](https://github.com/u-gems/u-observers/blob/master/CODE_OF_CONDUCT.md).
