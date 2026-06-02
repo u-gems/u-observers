@@ -71,7 +71,7 @@ gem 'u-observers'
 
 | u-observers | branch | ruby     | activerecord    |
 | ----------- | ------ | -------- | --------------- |
-| unreleased  | main   | >= 2.7.0 | >= 6.0, <= Edge |
+| 3.0.0       | main   | >= 2.7.0 | >= 6.0, <= Edge |
 | 2.3.0       | v2.x   | >= 2.2.0 | >= 3.2, < 6.1   |
 | 1.0.0       | v1.x   | >= 2.2.0 | >= 3.2, < 6.1   |
 
