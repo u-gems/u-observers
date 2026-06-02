@@ -11,6 +11,8 @@ change, not a behavior break.
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-06-01
+
 ### Added
 
 - `notify_observers!` — declare observers on an `ActiveModel`/`ActiveRecord`
@@ -148,7 +150,8 @@ change, not a behavior break.
 
 - Initial release — the `Micro::Observers` implementation of the observer pattern.
 
-[Unreleased]: https://github.com/u-gems/u-observers/compare/v2.3.0...HEAD
+[Unreleased]: https://github.com/u-gems/u-observers/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/u-gems/u-observers/compare/v2.3.0...v3.0.0
 [2.3.0]: https://github.com/u-gems/u-observers/compare/v2.2.1...v2.3.0
 [2.2.1]: https://github.com/u-gems/u-observers/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/u-gems/u-observers/compare/v2.1.0...v2.2.0
